@@ -31,17 +31,21 @@ const SemesterList = () => {
   }, [path]);
   
   return (
-    <div>
-      <h1>Semesters</h1>
-      <ul>
-        {semesters.map((semester) => (
-          <li key={semester.semester}>
-            <Link href={`/subject?path=${semester.subjects}`}>
-              {semester.semester}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center">
+      <div className="text-center">
+        <h1 className="my-4 text-2xl font-bold">Semesters</h1>
+        <ul className="flex flex-col items-center gap-4">
+          {semesters.map((semester) => (
+            <li key={semester.semester} className="relative">
+              <Link href={`/subject?path=${semester.subjects}`}>
+                <span className="block py-2 px-4 bg-gray-700 hover:bg-gray-600 rounded-md cursor-pointer">
+                  {semester.semester}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

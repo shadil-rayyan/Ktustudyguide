@@ -36,17 +36,21 @@ const SubjectList = () => {
   }, [path]);
 
   return (
-    <div>
-      <h1>Subjects</h1>
-      <ul>
-        {subjects.map((subject) => (
-          <li key={subject.subject}>
-            <Link href={`/sections?path=${subject.section}`}>
-              {subject.subject}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center">
+      <div className="text-center">
+        <h1 className="my-4 text-2xl font-bold">Subjects</h1>
+        <ul className="flex flex-col items-center gap-4">
+          {subjects.map((subject) => (
+            <li key={subject.subject} className="relative">
+              <Link href={`/sections?path=${subject.section}`}>
+                <span className="block py-2 px-4 bg-gray-700 hover:bg-gray-600 rounded-md cursor-pointer">
+                  {subject.subject}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

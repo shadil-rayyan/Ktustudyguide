@@ -37,18 +37,22 @@ const SectionList = () => {
   }, [path]);
 
   return (
-    <div>
-      <h1>Sections</h1>
-      <ul>
-        {sections.map((section) => (
-          <li key={section.topic}>
-            <Link href={`/section?path=${section.file}`}>
-              {section.topic}
-            </Link>
-          </li>
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center">
+      <div className="text-center">
+        <h1 className="my-4 text-2xl font-bold">Sections</h1>
+        <ul className="flex flex-col items-center gap-4">
+          {sections.map((section) => (
+            <li key={section.topic} className="relative">
+              <Link href={`/section?path=${section.file}`}>
+                <span className="block py-2 px-4 bg-gray-700 hover:bg-gray-600 rounded-md cursor-pointer">
+                  {section.topic}
+                </span>
+              </Link>
+            </li>
         ))}
       </ul>
     </div>
+  </div>
   );
 };
 
