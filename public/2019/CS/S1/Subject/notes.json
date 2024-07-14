@@ -1,0 +1,29 @@
+{
+    "notes": [
+      {
+        "module": "module 1",
+        "download": "/2019/CS/S1/Subject/download"
+      },
+      {
+        "module": "module 2",
+        "download": "/2019/CS/S1/Subject/download"
+      },
+      {
+        "module": "module 3",
+        "download": "/2019/CS/S1/Subject/download"
+      },
+      {
+        "module": "module 4",
+        "download": "/2019/CS/S1/Subject/download"
+      },
+      {
+        "module": "module 5",
+        "download": "/2019/CS/S1/Subject/download"
+      },
+      {
+        "module": "module 6",
+        "download": "/2019/CS/S2/sections.json"
+      }
+    ]
+  }
+  

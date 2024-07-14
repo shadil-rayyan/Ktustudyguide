@@ -1,0 +1,18 @@
+{
+    "external":
+     [
+      {
+        "title": "PDF File 1",
+        "file": "/path/to/pdf/file1.pdf"
+      },
+      {
+        "title": "PDF File 2",
+        "file": "/path/to/pdf/file2.pdf"
+      },
+      {
+        "title": "PDF File 3",
+        "file": "/path/to/pdf/file3.pdf"
+      }
+    ]
+  }
+  

@@ -1,0 +1,28 @@
+{
+  "sections": [
+    {
+      "section": "note",
+      "file": "/2019/CS/S1/Subject/notes.json"
+    },
+    {
+      "section": "question paper",
+      "file": "/2019/CS/S1/Subject/questionss.json"
+    },
+    {
+      "section": "solved question paper",
+      "file": "/2019/CS/S1/Subject/solvedquestionss.json"
+    },
+    {
+      "section": "syllabus",
+      "file": "/2019/CS/S1/Subject/syllabuss.json"
+    },
+    {
+      "section": "important topic",
+      "file": "/2019/CS/S1/Subject/importenttopics.json"
+    },
+    {
+      "section": "youtube playlist",
+      "file": "/2019/CS/S1/Subject/youtubeplaylist.json"
+    }
+  ]
+}

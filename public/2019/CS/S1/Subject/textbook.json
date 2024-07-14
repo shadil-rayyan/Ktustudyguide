@@ -1,0 +1,15 @@
+{
+    "textbooks": [
+      {
+        "title": "Textbook 1",
+        "author": "Author A",
+        "file": "/2019/CS/S1/subject/textbook1.pdf"
+      },
+      {
+        "title": "Textbook 2",
+        "author": "Author B",
+        "file": "/2019/CS/S1/subject/textbook2.pdf"
+      }
+    ]
+  }
+  

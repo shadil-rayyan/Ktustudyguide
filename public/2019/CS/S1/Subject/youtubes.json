@@ -1,0 +1,13 @@
+{
+    "youtubePlaylist": [
+      {
+        "title": "Introduction to Topic X",
+        "videoId": "abcdefg1234"
+      },
+      {
+        "title": "Advanced Topic Y",
+        "videoId": "xyz789"
+      }
+    ]
+  }
+  
