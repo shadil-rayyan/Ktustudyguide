@@ -8,27 +8,82 @@ export const metadata: Metadata = {
 };
 
 type ExplorerPageProps = {
-  params: Promise<{ slug?: string[] }>;
+  params: {
+    slug: string[];
+  };
+  directories: fs.Dirent[];
+  pdfs: fs.Dirent[];
 };
 
-export default async function ExplorerPage({ params }: ExplorerPageProps) {
-  const { slug = [] } = await params;
+export async function getStaticPaths() {
+  const basePath = path.join(process.cwd(), 'public/kustudyguide');
+
+  // Recursive function to get all directories
+  const getDirectories = (dir: string): string[] => {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    let directories: string[] = [];
+
+    entries.forEach((entry) => {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        directories.push(fullPath.replace(basePath, '').replace(/\\/g, '/').slice(1));
+        directories = directories.concat(getDirectories(fullPath)); // Recurse into subdirectories
+      }
+    });
+
+    return directories;
+  };
+
+  const directories = getDirectories(basePath);
+
+  const paths = directories.map((dir) => ({
+    params: { slug: dir.split('/') },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }: { params: { slug: string[] } }) {
+  const { slug = [] } = params;
   const basePath = path.join(process.cwd(), 'public/kustudyguide', ...slug);
 
   let entries: fs.Dirent[] = [];
   try {
     entries = fs.readdirSync(basePath, { withFileTypes: true });
   } catch {
-    return (
-      <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8 text-center">
-        <h1 className="text-2xl font-semibold text-red-600">❌ Folder Not Found</h1>
-        <p className="text-gray-600 mt-2">No directory exists at this path.</p>
-      </main>
-    );
+    return {
+      notFound: true,
+    };
   }
 
-  const directories = entries.filter((e) => e.isDirectory());
-  const pdfs = entries.filter((e) => e.isFile() && e.name.toLowerCase().endsWith('.pdf'));
+  const directories = entries.filter((e) => e.isDirectory()).map((dir) => ({
+    name: dir.name,
+    path: path.join(basePath, dir.name),
+  }));
+
+  const pdfs = entries.filter((e) => e.isFile() && e.name.toLowerCase().endsWith('.pdf')).map((pdf) => ({
+    name: pdf.name,
+    path: path.join(basePath, pdf.name),
+  }));
+
+  return {
+    props: {
+      params,
+      directories,
+      pdfs,
+    },
+  };
+}
+
+export default function ExplorerPage({
+  params,
+  directories,
+  pdfs,
+}: ExplorerPageProps) {
+  const { slug = [] } = params;
 
   return (
     <main className="min-h-screen bg-white p-8">

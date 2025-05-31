@@ -1,9 +1,10 @@
+// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
-  trailingSlash: true, // useful for static exports
+  // Remove the experimental section entirely
+  // experimental: {
+  //   appDir: true,
+  // },
 };
 
 module.exports = nextConfig;
