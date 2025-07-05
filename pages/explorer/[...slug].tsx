@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import styles from './Explorer.module.css';
 
 export const metadata: Metadata = {
-  title: 'KUSTudy Branch Explorer',
+  title: 'AcademiaDrive Explorer',
 };
 
 type ExplorerPageProps = {
@@ -17,7 +17,7 @@ type ExplorerPageProps = {
 };
 
 export async function getStaticPaths() {
-  const basePath = path.join(process.cwd(), 'public/kustudyguide');
+  const basePath = path.join(process.cwd(), 'public/academiadrive');
 
   const getDirectories = (dir: string): string[] => {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -27,7 +27,7 @@ export async function getStaticPaths() {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         directories.push(fullPath.replace(basePath, '').replace(/\\/g, '/').slice(1));
-        directories = directories.concat(getDirectories(fullPath));
+        directories = directories.concat(getDirectories(fullPath)); // Recursively add directories
       }
     });
 
@@ -44,13 +44,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { slug: string[] } }) {
   const { slug = [] } = params;
-  const basePath = path.join(process.cwd(), 'public/kustudyguide', ...slug);
+  const basePath = path.join(process.cwd(), 'public/academiadrive', ...slug);
 
   let entries: fs.Dirent[] = [];
   try {
     entries = fs.readdirSync(basePath, { withFileTypes: true });
   } catch {
-    return { notFound: true };
+    return { notFound: true }; // Return 404 if path doesn't exist
   }
 
   const directories = entries
@@ -73,7 +73,7 @@ export default function ExplorerPage({ params, directories, pdfs }: ExplorerPage
     <main className={styles.container}>
       <h1 className={styles.heading}>Study Material</h1>
       <div className={styles.subheading}>
-        {slug.length > 0 ? slug.join(' / ') : 'SELECT YOUR BRANCH'}
+        {slug.length > 0 ? slug.join(' / ') : 'SELECT A CATEGORY'}
       </div>
 
       {directories.length > 0 && (
@@ -97,7 +97,7 @@ export default function ExplorerPage({ params, directories, pdfs }: ExplorerPage
             {pdfs.map((pdf) => (
               <a
                 key={pdf.name}
-                href={`/kustudyguide/${[...slug, pdf.name].join('/')}`}
+                href={`/academiadrive/${[...slug, pdf.name].join('/')}`}
                 className={styles.card}
                 download
               >

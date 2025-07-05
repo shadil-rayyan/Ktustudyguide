@@ -1,29 +1,38 @@
-import Link from 'next/link';
-import Head from 'next/head';
-import styles from './index.module.css';
+// /pages/index.tsx
 
-const semesters = Array.from({ length: 8 }, (_, i) => `S${i + 1}`);
+import fs from 'fs';
+import path from 'path';
+import ExplorerPage from './explorer/[...slug]';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async () => {
+  const basePath = path.join(process.cwd(), 'public/academiadrive');
+  
+  // List the top-level directories
+  const directories = fs.readdirSync(basePath, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((dir) => dir.name);
+
+  // No PDFs at the homepage level
+  const pdfs: any[] = [];
+
+  return {
+    props: {
+      params: { slug: [] },  // Empty slug for the homepage
+      directories,
+      pdfs,
+    },
+  };
+};
+
+export default function HomePage({ directories, pdfs }: { directories: string[], pdfs: any[] }) {
   return (
-    <>
-      <Head>
-        <title>Select Semester | KUSTudy</title>
-      </Head>
-      <main className={styles.container}>
-        <h1 className={styles.heading}>Study Material</h1>
-        <div className={styles.subheading}>SEM</div>
-
-        <div className={styles.grid}>
-          {semesters.map((sem) => (
-            <Link key={sem} href={`/explorer/${sem.toLowerCase()}`} className={styles.card}>
-              <span>{sem}</span>
-            </Link>
-          ))}
-        </div>
-
-        <p className={styles.footer}>Stay focused, work hard, and believe in yourself</p>
-      </main>
-    </>
+    <div>
+      <ExplorerPage
+        params={{ slug: [] }} // Empty slug for the homepage
+        directories={directories.map((dir) => ({ name: dir, path: dir }))}
+        pdfs={pdfs} // No PDFs for the homepage
+      />
+    </div>
   );
 }
