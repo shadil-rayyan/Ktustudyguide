@@ -1,9 +1,8 @@
-  // pages/_app.tsx
+// pages/_app.js
+import './globals.css'; // ✅ Make sure this file exists
 
-import '../pages/';
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
 
-  function MyApp({ Component, pageProps }) {
-    return <Component {...pageProps} />;
-  }
-
-  export default MyApp;
+export default MyApp;
