@@ -1,31 +1,29 @@
 import Link from 'next/link';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Select Semester | KUSTudy',
-};
+import Head from 'next/head';
+import styles from './index.module.css';
 
 const semesters = Array.from({ length: 8 }, (_, i) => `S${i + 1}`);
 
-export default function ExplorerRoot() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-white p-8">
-      <h1 className="text-3xl font-bold text-center mb-10 text-blue-500">SELECT YOUR SEMESTER</h1>
+    <>
+      <Head>
+        <title>Select Semester | KUSTudy</title>
+      </Head>
+      <main className={styles.container}>
+        <h1 className={styles.heading}>Study Material</h1>
+        <div className={styles.subheading}>SEM</div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-4xl mx-auto">
-        {semesters.map((sem) => (
-          <Link
-            key={sem}
-            href={`/explorer/${sem.toLowerCase()}`}
-            className="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <div className="bg-blue-400 text-white text-4xl w-20 h-20 flex items-center justify-center rounded-full mb-4">
-              📄
-            </div>
-            <span className="text-xl font-semibold text-gray-700">{sem}</span>
-          </Link>
-        ))}
-      </div>
-    </main>
+        <div className={styles.grid}>
+          {semesters.map((sem) => (
+            <Link key={sem} href={`/explorer/${sem.toLowerCase()}`} className={styles.card}>
+              <span>{sem}</span>
+            </Link>
+          ))}
+        </div>
+
+        <p className={styles.footer}>Stay focused, work hard, and believe in yourself</p>
+      </main>
+    </>
   );
 }
